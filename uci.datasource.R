@@ -1,4 +1,5 @@
 library(data.table)
+library(chron)
 
 setClass("UCITime")
 setAs("character", "UCITime", function(from) as.POSIXct(from, format="%H:%M:%S"))
@@ -20,6 +21,7 @@ UCI.data <- fread("household_power_consumption.txt",
                   header = TRUE,
                   sep = ";",
                   colClasses = c("UCIDate", "UCITime", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
-                  na.strings = "?")[, Date:=as.Date(Date, format="%d/%m/%Y")][,Time:=as.POSIXct(Time, format="%H:%M:%S")]
+                  na.strings = "?")[, Date:=as.Date(Date, format = "%d/%m/%Y")]
+UCI.data <- UCI.data[UCI.data$Date >= "2007-02-01" & UCI.data$Date <= "2007-02-02",]
+UCI.data <- UCI.data[, Timestamp:=as.POSIXct(paste(Date, Time))]
 
-UCI.data <- UCI.data[UCI.data$Date >= as.Date("2007-02-01") & UCI.data$Date <= as.Date("2007-02-02"),]
