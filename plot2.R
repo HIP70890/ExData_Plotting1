@@ -1,6 +1,7 @@
 library(data.table)
 source("uci.datasource.R")
 
+Sys.setlocale("LC_ALL", "en_US.UTF-8")
 png("plot2.png")
 with(UCI.data,
      plot(Timestamp,

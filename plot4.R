@@ -1,6 +1,7 @@
 library(data.table)
 source("uci.datasource.R")
 
+Sys.setlocale("LC_ALL", "en_US.UTF-8")
 png("plot4.png")
 par(mfrow = c(2, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
 with(UCI.data, {
