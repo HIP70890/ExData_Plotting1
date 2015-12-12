@@ -10,3 +10,4 @@ with(UCI.data,
           xlab = "")
      )
 dev.off()
+rm(UCI.data, UCI.data_source.filename, UCI.data_source.zip)

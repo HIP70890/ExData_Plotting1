@@ -28,3 +28,4 @@ with(UCI.data, {
        xlab = "datetime")
 })
 dev.off()
+rm(UCI.data, UCI.data_source.filename, UCI.data_source.zip)
