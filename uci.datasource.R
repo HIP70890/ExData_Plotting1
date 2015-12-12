@@ -1,6 +1,7 @@
 library(data.table)
 
-setAs("character", "UCIDate", function(from) as.Date(from, format="%d/%m/%Y"))
+setClass("UCITime")
+setAs("character", "UCITime", function(from) as.POSIXct(from, format="%H:%M:%S"))
 
 UCI.data_source.filename <- "household_power_consumption.zip"
 if (!file.exists(UCI.data_source.filename)) {
@@ -8,12 +9,17 @@ if (!file.exists(UCI.data_source.filename)) {
                 destfile = UCI.data_source.filename)
 }
 
-tmpfile <- tempfile()
-UCI.data <- read.csv(unz(description =  UCI.data_source.filename, filename = "household_power_consumption.txt"),
-                     colClasses = c("UCIDate", "character",
-                                    "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
-                     sep = ";",
-                     na.strings = "?")
-unlink(tmpfile)
+unzip(zipfile =  UCI.data_source.filename, files = c("household_power_consumption.txt"))
+# UCI.data <- fread("household_power_consumption.txt",
+#                   header = TRUE,
+#                   colClasses = c("UCIDate", "UCITime", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
+#                   sep = ";",
+#                   na.strings = "?")
+# unlink(tmpfile)
+UCI.data <- fread("household_power_consumption.txt",
+                  header = TRUE,
+                  sep = ";",
+                  colClasses = c("UCIDate", "UCITime", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"),
+                  na.strings = "?")[, Date:=as.Date(Date, format="%d/%m/%Y")][,Time:=as.POSIXct(Time, format="%H:%M:%S")]
 
 UCI.data <- UCI.data[UCI.data$Date >= as.Date("2007-02-01") & UCI.data$Date <= as.Date("2007-02-02"),]
