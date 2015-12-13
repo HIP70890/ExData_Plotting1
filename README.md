@@ -1,9 +1,8 @@
-## Introduction
-
-# PLEASE NOTE:
+## PLEASE NOTE:
 This fork contains my specific changes to solve the task for the four plots.
 It containes the four plot files (plot1.R, plot2.R, plot3.R, and plot4.R), as well as a sub-script which takes care of the download of the original data from UCI.
 
+## Introduction
 This assignment uses data from
 the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
 Learning Repository</a>, a popular repository for machine learning
